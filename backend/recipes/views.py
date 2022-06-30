@@ -26,13 +26,11 @@ class IngredientViewSet(ListRetriveViewSet):
     queryset = Ingredient.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_class = IngredientSearchFilter
-    http_method_names = ('get',)
 
 
 class TagViewSet(ListRetriveViewSet):
     serializer_class = TagSerializer
     queryset = Tag.objects.all()
-    http_method_names = ('get',)
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -41,7 +39,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthorOrAdminOrReadOnly,)
     filter_backends = (DjangoFilterBackend,)
     filterset_class = RecipeFilter
-    http_method_names = ('get', 'post', 'put', 'patch', 'delete',)
 
     def get_serializer_class(self):
         if self.request.method in SAFE_METHODS:
@@ -122,7 +119,6 @@ class ShoppingCartViewSet(viewsets.GenericViewSet):
     queryset = ShoppingCart.objects.all()
     permission_classes = (IsAuthenticated,)
     serializer_class = RecipeShortReadSerializer
-    http_method_names = ('get', 'post', 'delete',)
 
     def generate_shopping_cart_data(self, request):
         recipes = (

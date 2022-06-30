@@ -6,11 +6,11 @@ from .views import SubscribeViewSet, TokenView
 
 app_name = 'users'
 
-router = DefaultRouter()
-router.register(r'users', SubscribeViewSet, basename='users')
+router_v1 = DefaultRouter()
+router_v1.register(r'users', SubscribeViewSet, basename='users')
 
 urlpatterns = [
     path('auth/token/login/', TokenView.as_view(), name="login"),
     path('auth/token/logout/', TokenDestroyView.as_view(), name="logout"),
-    path('', include(router.urls)),
+    path('', include(router_v1.urls)),
 ]

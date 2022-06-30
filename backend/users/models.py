@@ -11,21 +11,17 @@ class User(AbstractUser, PermissionsMixin):
 
     first_name = models.CharField(
         'Имя',
-        max_length=150,
-        blank=False,
-        null=False
+        max_length=150
     )
 
     last_name = models.CharField(
         'Фамилия',
-        max_length=150,
-        blank=False,
-        null=False
+        max_length=150
     )
 
     password = models.CharField(
         'Пароль',
-        max_length=150,
+        max_length=150
     )
 
     email = models.EmailField(
@@ -45,13 +41,13 @@ class User(AbstractUser, PermissionsMixin):
     )
 
     class Meta:
-        ordering = ['id']
-        constraints = [
+        ordering = ('id',)
+        constraints = (
             models.UniqueConstraint(
-                fields=['email', 'username'],
+                fields=('email', 'username',),
                 name='unique_auth'
             ),
-        ]
+        )
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 

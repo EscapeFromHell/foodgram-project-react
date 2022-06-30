@@ -10,7 +10,7 @@ MIN_COOKING_TIME = 'Время приготовления не может быт
 class Tag(models.Model):
     name = models.CharField('Название тега', max_length=200, unique=True)
     color = models.CharField('Цвет', max_length=7)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, max_length=200)
 
     class Meta:
         verbose_name = 'Тег'
@@ -25,7 +25,7 @@ class Ingredient(models.Model):
     measurement_unit = models.CharField('Единица измерения', max_length=200)
 
     class Meta:
-        ordering = ['name']
+        ordering = ('name',)
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
 
@@ -68,7 +68,7 @@ class Recipe(models.Model):
     )
 
     class Meta:
-        ordering = ['-pk']
+        ordering = ('-pk',)
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
 
@@ -143,10 +143,12 @@ class Favorite(models.Model):
     class Meta:
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
-        constraints = [
-            models.UniqueConstraint(fields=['user', 'recipe'],
-                                    name='unique_user_favorite_recipe')
-        ]
+        constraints = (
+            models.UniqueConstraint(
+                fields=('user', 'recipe',),
+                name='unique_user_favorite_recipe',
+            ),
+        )
 
     def __str__(self):
         return f'{self.user} -> {self.recipe}'

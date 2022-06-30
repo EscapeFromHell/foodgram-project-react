@@ -118,6 +118,10 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
                     'Количество ингредиента не может быть меньше 1!'
                 )
             id_ingredients.append(ingredient['id'])
+            if type(ingredient['amount']) != int:
+                raise serializers.ValidationError(
+                    'Необходимо указать целое число!'
+                )
         if len(id_ingredients) > len(set(id_ingredients)):
             raise serializers.ValidationError(
                 'Ингредиенты не должны повторяться!'
