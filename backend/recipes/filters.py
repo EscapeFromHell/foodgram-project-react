@@ -1,7 +1,7 @@
 import django_filters
 from django.db.models import IntegerField, Value
 
-from .models import Ingredient, Recipe, ShoppingCart
+from .models import Ingredient, Recipe, ShoppingCart, Tag, User
 
 
 class IngredientSearchFilter(django_filters.FilterSet):
@@ -30,23 +30,37 @@ class IngredientSearchFilter(django_filters.FilterSet):
 
 
 class RecipeFilter(django_filters.FilterSet):
-    is_favorited = django_filters.BooleanFilter(method='get_is_favorited')
+    IN = 1
+    OUT = 0
+    CHOICES = (
+        (IN, 1),
+        (OUT, 0),
+    )
+    tags = django_filters.ModelMultipleChoiceFilter(
+        field_name='tags__slug',
+        queryset=Tag.objects.all(),
+        to_field_name='slug'
+    )
+    author = django_filters.ModelChoiceFilter(
+        queryset=User.objects.all()
+    )
+    is_favorited = django_filters.ChoiceFilter(
+        method='get_is_favorited',
+        choices=CHOICES
+    )
     is_in_shopping_cart = django_filters.BooleanFilter(
         method='get_is_in_shopping_cart'
     )
-    tags = django_filters.AllValuesMultipleFilter(field_name='tags__slug')
 
     class Meta:
         model = Recipe
-        fields = ('author',)
+        fields = ('tags', 'author')
 
     def get_is_favorited(self, queryset, name, value):
-        if not value:
-            return queryset
-        favorites = self.request.user.favorites.all()
-        return queryset.filter(
-            pk__in=(favorite.recipe.pk for favorite in favorites)
-        )
+        user = self.request.user
+        if value and not user.is_anonymous:
+            return queryset.filter(favorites__user=user)
+        return queryset
 
     def get_is_in_shopping_cart(self, queryset, name, value):
         if not value:

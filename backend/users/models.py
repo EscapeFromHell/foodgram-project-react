@@ -55,8 +55,8 @@ class User(AbstractUser, PermissionsMixin):
         return self.username
 
     @property
-    def is_staff(self):
-        return self.is_superuser
+    def is_admin(self):
+        return self.is_superuser or self.is_staff
 
 
 class Subscribe(models.Model):
