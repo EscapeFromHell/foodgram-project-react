@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ../.env
+      - ./.env
   backend:
     image: escapefromhell/foodgram_backend:latest
     restart: always
@@ -21,7 +21,7 @@ services:
     depends_on:
       - db
     env_file:
-      - ../.env
+      - ./.env
   frontend:
     image: escapefromhell/foodgram_frontend:latest
     volumes:
