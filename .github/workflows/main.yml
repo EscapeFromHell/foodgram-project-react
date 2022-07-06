@@ -5,8 +5,7 @@ on:
     branches:
       - master
 
-jobs:
-        
+jobs: 
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
@@ -24,12 +23,14 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          context: backend/
           tags: escapefromhell/foodgram_backend:latest
           file: ./backend/Dockerfile
       - name: Push to Docker Hub Frontend
         uses: docker/build-push-action@v2
         with:
           push: true
+          context: frontend/
           tags: escapefromhell/foodgram_frontend:latest
           file: ./frontend/Dockerfile
   deploy:
