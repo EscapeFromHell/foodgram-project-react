@@ -38,23 +38,30 @@ Python 3.7.9, Django 3.2.7, Django REST Framework 3.12.4, PostgresQL, Docker, Ya
 
 ## Запуск проекта локально
 - После скачивания проекта, перейдите в папку проекта и установите виртуальное окружение.
+
 python -m venv venv
 
 - Активируйте его
+
 source venv/scripts/activate
 
 - Перейдите в папку Backend
+
 cd backend/
 
 - Установите зависимости из файла requirements.txt
+
 pip install -r requirements.txt
 
-- Выполните команду:
+- Выполните команду
+
 python manage.py runserver
 
 ## Запуск в контейнерах
 - Для сборки образов и контейнеров перейдите в папку infra
+
 cd infra/
 
-- Выполните команду:
+- Выполните команду
+
 docker-compose up -d --build 
