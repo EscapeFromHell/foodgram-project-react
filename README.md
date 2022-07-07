@@ -7,28 +7,22 @@ Cервис для публикаций и обмена рецептами.
 ![workflow](https://github.com/EscapeFromHell/foodgram-project-react/actions/workflows/main.yml/badge.svg)
 
 > Сайт:
->>
-http://84.252.137.162/
+>> http://84.252.137.162/
 
 > Админка:
->>
-http://84.252.137.162/admin/
+>> http://84.252.137.162/admin/
 
 > Логин админа:
->> 
-Admin
+>> Admin
 
 > Пароль:
->> 
-Az42sx53
+>> Az42sx53
 
 > Обычный пользователь:
->>
-gordon@gmail.com
+>> gordon@gmail.com
 
 > Пароль:
->> 
-Az42sx53
+>> Az42sx53
 
 ## Технологии
 Python 3.7.9, Django 3.2.7, Django REST Framework 3.12.4, PostgresQL, Docker, Yandex.Cloud.
